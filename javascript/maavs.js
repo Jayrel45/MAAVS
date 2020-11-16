@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
-const token = require('./token');
 const client = new Discord.Client();
+const config = require('./config.json');
 
-var comPrefix = '!';
 
 var prefixList = [
     '!',
@@ -18,15 +17,16 @@ client.on('ready', () => {
 client.on('message', msg => {
 var command = msg.content.split(" ");
   
-  if (command[0] === comPrefix + 'ping') {
+  if (command[0] === config.prefix + 'ping') {
     msg.reply('quack');
   }
-  else if (command[0] === comPrefix + 'prefix') {
+  else if (command[0] === config.prefix + 'prefix') {
     
-    comPrefix = command[1];
-    msg.reply('Prefix Changed to ' + comPrefix);
+    config.prefix = command[1];
+    msg.reply('Prefix Changed to ' + config.prefix);
+    config.prefix = command[1];
     console.log("prefix changed!");
   }
 });
 
-client.login(token);
+client.login(config.token);
