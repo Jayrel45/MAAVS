@@ -1,0 +1,11 @@
+Movie Aquisition and Voting System (MAAVS)
+People submit movie suggestions using a 'suggest command' in a discord text channel
+the bot then adds this suggestion to a master list of movie suggestions
+
+When the bot wrangler is ready they can invoke a "vote command"
+
+The bot randomly selects as many movies as the server wants
+
+The bot then has these selection listed to be voted on through message reactions
+
+the bot reads the reactions then displays the winner of the vote and it is removed from the master list
