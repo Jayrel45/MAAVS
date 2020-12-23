@@ -1,26 +1,46 @@
+const fs = require('fs');
+const { join } = require('path');
 const config = require('../config.json');
+const masterlist = require('../masterlist.json');
+
 
 module.exports = {
 	name: 'add',
 	description: 'Add a Value to a list',
 	execute(message, args) {
-        var fs = require('fs'); 
-        const cnt = 0;
-        
+    
         args = message.content.slice(config.prefix.length + this.name.length).trim().split("/n");
+        
+        var idpopulate;
 
-        console.log("Excecuted: " + this.name);
-        for (let index = 0; index < args.length; index++) {
-            console.log(args[index]);
-            
-            fs.appendFile('masterlist.json', args[index] + "\n" , (err) => {
-                if (err) throw err;
-                console.log('The "args[index]" was appended to file!');
-                message.reply("\"" + args[index] + "\"" + " Added!");
-            });
+        var varlist;
+
+        varlist = masterlist;
+
+        idpopulate = varlist.listlength;
+        
+        datapackage = {
+            "title": args[0],
+            "author": message.author.tag,
+            "id": idpopulate,
+            "timestamp": Date.now()
         }
         
-        fs.close;
-
+        for (let index = 0; index < args.length; index++) {
+            console.log(args[index]);
+ 
+            varlist.list.push(datapackage);
+            varlist.listlength +=1;
+           
+            fs.writeFile('masterlist.json', JSON.stringify(varlist, null, 2),function writeJSON(err) {
+                if (err) return console.log(err);
+                console.log(JSON.stringify(varlist.list[varlist.listlength]));
+                console.log('Item Added!');
+            });
+            
+            fs.close;
+            
+            message.react("👍");
+        } 
 	},
 };
